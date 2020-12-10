@@ -1,0 +1,39 @@
+@mixin mo-reg() {
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+@mixin mo-med() {
+  font-style: normal;
+  font-weight: 500;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+@mixin mo-bold() {
+  font-style: normal;
+  font-weight: 700;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+@function calcFluidFontSize($f-min, $f-max, $w-min, $w-max, $units: px) {
+  $f-min: strip-unit($f-min);
+  $f-max: strip-unit($f-max);
+  $w-min: strip-unit($w-min);
+  $w-max: strip-unit($w-max);
+
+  $k: ($f-max - $f-min)/($w-max - $w-min);
+  $b: $f-min - $k * $w-min;
+
+  $b: $b + $units;
+
+  @return calc( #{$k} * 100vw + #{$b} );
+}
