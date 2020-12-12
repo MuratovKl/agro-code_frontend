@@ -12,11 +12,14 @@
     }"
   >
     <div class="image-input__info">
-      <img class="image-input__upload-icon" src="../assets/upload_icon.svg">
-      <p :style="{ 'opacity': isDragInside ? 0 : 1 }" class="image-input__text">
-        Перетащите файл<br>
-        или <span class="image-input__text_underline">нажмите сюда</span>
-      </p>
+      <div class="image-input__content_desktop">
+        <img class="image-input__upload-icon" src="../assets/upload_icon.svg">
+        <p :style="{ 'opacity': isDragInside ? 0 : 1 }" class="image-input__text">
+          Перетащите файл<br>
+          или <span class="image-input__text_underline">нажмите сюда</span>
+        </p>
+      </div>
+      <p class="image-input__content_mobile">Выбрать файл</p>
     </div>
 
 
@@ -100,6 +103,17 @@ export default {
     flex-direction: column;
     align-items: center;
   }
+  &__content {
+    &_desktop {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    &_mobile {
+      display: none;
+    }
+  }
   &__upload-icon {
     width: 115px;
     margin-bottom: 35px;
@@ -123,5 +137,21 @@ export default {
     object-fit: cover;
   }
 
+}
+
+@media screen and (max-width: 767px) {
+  .image-input {
+    padding: 100px 0;
+    &__content {
+      &_desktop {
+        display: none;
+      }
+      &_mobile {
+        @include fonts.mo-med();
+        display: block;
+        font-size: 22px;
+      }
+    }
+  }
 }
 </style>

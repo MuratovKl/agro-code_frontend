@@ -59,6 +59,7 @@ export default {
 .home {
   display: flex;
   justify-content: center;
+  margin-bottom: 50px;
   &__wrapper {
     width: 100%;
     max-width: 1280px;
@@ -76,7 +77,7 @@ export default {
   &__how-title {
     @include fonts.mo-bold();
     margin-top: 50px;
-    font-size: 36px;
+    font-size: fonts.calcFluidFontSize(18px, 36px, 375px, 1440px);
   }
   &__how-bullets {
     margin-top: 25px;
@@ -102,6 +103,64 @@ export default {
   }
   &__link {
     color: colors.$link;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .home {
+    &__how-bullets {
+      margin-top: 35px;
+    }
+  }
+  .how-to {
+    grid-template-columns: 1fr;
+    row-gap: 50px;
+    &__item {
+      display: flex;
+      align-items: center;
+    }
+    &__number {
+      width: 90px;
+      margin-right: 25px;
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+    &__text {
+      font-size: fonts.calcFluidFontSize(14px, 22px, 375px, 1024px);
+      padding-right: 100px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .home {
+    &__wrapper {
+      padding: 0 15px;
+    }
+    &__title {
+      margin-top: 20px;
+      &_desktop {
+        display: none;
+      }
+      &_mobile {
+        display: block;
+      }
+    }
+    &__how-title {
+      margin-top: 30px;
+    }
+    &__btn {
+      width: 100%;
+      margin: 35px auto 0;
+    }
+  }
+  .how-to {
+    &__number {
+      width: fonts.calcFluidFontSize(45px, 90px, 375px, 767px);
+    }
+    &__text {
+      padding-right: 0;
+    }
   }
 }
 </style>

@@ -64,4 +64,46 @@ export default {
     }
   }
 }
+
+@media screen and (max-width: 767px) {
+  .site-header {
+    &__wrapper {
+      height: 60px;
+      padding: 0 15px;
+    }
+    &__icon {
+      & > img {
+        width: 30px;
+      }
+    }
+    &__link {
+      font-size: 14px;
+      &:not(:last-child) {
+        margin-right: 30px;
+      }
+      &_active, &:hover {
+        border-bottom: 2px solid colors.$text;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .site-header {
+    &__links {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    &__link {
+      &:not(:last-child) {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+      &_active, &:hover {
+        border-bottom: 2px solid colors.$text;
+      }
+    }
+  }
+}
 </style>

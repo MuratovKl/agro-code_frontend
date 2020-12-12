@@ -8,8 +8,7 @@
             class="filter__option"
             :class="{ 'filter__option_selected': selectedFilter === 0 }"
           >
-            Все
-            <input
+            Все<input
               name="filter"
               type="radio"
               value="0"
@@ -21,8 +20,7 @@
             class="filter__option"
             :class="{ 'filter__option_selected': selectedFilter === 1 }"
           >
-          Здоровые
-            <input
+          Здоровые<input
               name="filter"
               type="radio"
               value="1"
@@ -34,8 +32,7 @@
             class="filter__option"
             :class="{ 'filter__option_selected': selectedFilter === 2 }"
           >
-            Больные
-            <input
+            Больные<input
               name="filter"
               type="radio"
               value="2"
@@ -85,6 +82,7 @@ export default {
 .history {
   display: flex;
   justify-content: center;
+  margin-bottom: 50px;
   &__wrapper {
     width: 100%;
     max-width: 1280px;
@@ -124,6 +122,46 @@ export default {
     }
     & > input[type="radio"] {
       display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .history {
+    &__wrapper {
+      padding: 0 15px;
+    }
+    &__filter {
+      margin-top: 20px;
+    }
+    &__requests {
+      margin-top: 35px;
+    }
+  }
+  .filter {
+    display: flex;
+    justify-content: space-between;
+    &__title {
+      font-size: fonts.calcFluidFontSize(15px, 24px, 375px, 767px);
+      margin-right: 0;
+    }
+    &__option {
+      font-size: fonts.calcFluidFontSize(15px, 24px, 375px, 767px);
+      padding: 2px 5px;
+      border-radius: 5px;
+      &:not(:last-of-type) {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .filter {
+    flex-direction: column;
+    align-items: flex-start;
+    &__title {
+      margin-bottom: 10px;
     }
   }
 }

@@ -127,6 +127,7 @@ export default {
 .upload {
   display: flex;
   justify-content: center;
+  margin-bottom: 50px;
   &__wrapper {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
@@ -159,6 +160,39 @@ export default {
   }
   &__btn {
     margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .upload {
+    &__wrapper {
+      grid-template-columns: 1fr;
+      row-gap: 50px;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .upload {
+    &__wrapper {
+      padding: 0 15px;
+      row-gap: 35px;
+    }
+    &__title {
+      margin-top: 20px;
+      font-size: fonts.calcFluidFontSize(24px, 36px, 375px, 767px);
+    }
+    &__rules-title {
+      margin-top: 20px;
+      font-size: fonts.calcFluidFontSize(14px, 22px, 375px, 767px);
+    }
+    &__rule {
+      font-size: fonts.calcFluidFontSize(14px, 22px, 375px, 767px);
+    }
+    &__btn {
+      width: 100%;
+      margin-top: 25px;
+    }
   }
 }
 </style>
