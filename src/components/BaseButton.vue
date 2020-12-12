@@ -2,6 +2,7 @@
   <button 
     @click="$emit('click')"
     class="base-button"
+    :class="{ 'base-button_error': status === 'error', 'base-button_success': status === 'success',}"
     :type="type"
   >
     <slot></slot>
@@ -13,9 +14,14 @@ export default {
   name: 'BaseButton',
   props: {
     type: {
-      requred: false,
+      required: false,
       type: String,
       default: 'button'
+    },
+    status: {
+      required: false,
+      type: String,
+      default: ''
     }
   }
 }
@@ -31,9 +37,16 @@ export default {
   font-size: fonts.calcFluidFontSize(22px, 26px, 375px, 1440px);
   color: colors.$text;
   border: none;
-  cursor: pointer;
   border-radius: 10px;
   background-color: colors.$illum;
   outline: none;
+  transition: all 200ms ease;
+  cursor: pointer;
+  &_error {
+    background-color: colors.$lightRed;
+  }
+  &_success {
+    background-color: colors.$green;
+  }
 }
 </style>

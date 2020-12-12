@@ -25,8 +25,7 @@
               class="how-to__link"
               :to="{ name: 'Upload' }"
             >
-              формы
-            </router-link> 
+              формы</router-link> 
             загрузите фотографию в&nbsp;систему
           </p>
         </div>

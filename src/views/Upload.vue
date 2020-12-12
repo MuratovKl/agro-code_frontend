@@ -29,6 +29,7 @@
           <base-button
             class="upload__btn"
             type="submit"
+            :status="uploadStatus"
           >
             {{ buttonText }}
           </base-button>
@@ -86,26 +87,31 @@ export default {
       let success = await this.$refs.form.validate()
       if (!success) {
         this.uploadStatus = 'error'
-        setTimeout(() =>  this.uploadStatus = '', 2000)
+        setTimeout(() => this.uploadStatus = '', 2000)
         return
       }
       const formData = new FormData()
-      formData.append('image', this.image)
+      formData.append('file', this.image)
 
       try {
         const response = await fetch('/upload', {
           method: 'POST',
+          mode: 'no-cors',
           body: formData
         })
         const data = await response.json()
+        this.uploadStatus = 'success'
+        setTimeout(() => {
+          this.uploadStatus = ''
+          this.$router.push({ name: 'History'})
+        }, 2000)
         if (data.error == 'err') {
           throw new Error('error when uploading image')
         }
-        console.log(data.image_name)
       } catch (e) {
         console.error(e.message)
         this.uploadStatus = 'error'
-        setTimeout(() =>  this.uploadStatus = '', 2000)
+        setTimeout(() => this.uploadStatus = '', 2000)
         return
       }
       this.uploadStatus = ''

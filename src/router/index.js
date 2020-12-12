@@ -13,7 +13,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/upload',
+    path: '/upload-image',
     name: 'Upload',
     component: Upload
   },
