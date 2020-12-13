@@ -44,6 +44,7 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import { extend } from 'vee-validate'
 import { required, image, size } from 'vee-validate/dist/rules'
 import { dbManager } from '../utils/DbManager'
+import { wsManager } from '../utils/WsManager'
 
 import ImageInput from '../components/ImageInput'
 import BaseButton from '../components/BaseButton'
@@ -92,32 +93,44 @@ export default {
         return
       }
 
-      const request = { id: 'blaba', state: 'healthy', img: this.image, creationDate: Date.now()}
-      dbManager.saveNewRequest(request)
-      // const formData = new FormData()
-      // formData.append('file', this.image)
-
-      // try {
-      //   const response = await fetch('/upload', {
-      //     method: 'POST',
-      //     mode: 'no-cors',
-      //     body: formData
-      //   })
-      //   const data = await response.json()
-      //   this.uploadStatus = 'success'
-      //   setTimeout(() => {
-      //     this.uploadStatus = ''
-      //     this.$router.push({ name: 'History'})
-      //   }, 2000)
-      //   if (data.error == 'err') {
-      //     throw new Error('error when uploading image')
-      //   }
-      // } catch (e) {
-      //   console.error(e.message)
-      //   this.uploadStatus = 'error'
-      //   setTimeout(() => this.uploadStatus = '', 2000)
-      //   return
-      // }
+      // const request = { id: 'blaba', state: 'healthy', img: this.image, creationDate: Date.now()}
+      // dbManager.saveNewRequest(request)
+      const formData = new FormData()
+      formData.append('file', this.image)
+      // 1. make post request with image
+      try {
+        const response = await fetch('/upload', {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData
+        })
+        const data = await response.json()
+        if (data.error) {
+          this.uploadStatus = 'error'
+          setTimeout(() => this.uploadStatus = '', 2000)
+          return
+        }
+        // 2. create new request with id from data and state 'loading'
+        const request = { id: data.image_name, state: 'loading', img: this.image, creationDate: Date.now()}
+        // 3. save new request to indexedDb
+        dbManager.saveNewRequest(request)
+        // 4. send message with id to ws
+        wsManager.sendMessage(data.image_name)
+        this.uploadStatus = 'success'
+        setTimeout(() => {
+          this.uploadStatus = ''
+          this.$router.push({ name: 'History'})
+          return
+        }, 2000)
+        if (data.error == 'err') {
+          throw new Error('error when uploading image')
+        }
+      } catch (e) {
+        console.error(e.message)
+        this.uploadStatus = 'error'
+        setTimeout(() => this.uploadStatus = '', 2000)
+        return
+      }
       this.uploadStatus = ''
     }
   }

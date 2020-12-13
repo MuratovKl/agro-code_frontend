@@ -19,6 +19,12 @@ export default new Vuex.Store({
     addRequest(state, payload) {
       state.requests.push(payload)
       state.requests.sort((a, b) => b.creationDate - a.creationDate)
+    },
+    updateRequestState(state, payload) {
+      const index = state.requests.findIndex((el) => el.id === payload.id)
+      if (index !== -1) {
+        state.requests[index].state = payload.newState
+      }
     }
   },
   actions: {

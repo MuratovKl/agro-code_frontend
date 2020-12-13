@@ -47,6 +47,16 @@ class DbManager {
       }
     }
   }
+  updateRequestById(id, newState) {
+    const objectStore = this.db.transaction('requests', 'readwrite').objectStore('requests')
+    objectStore.get(id).onsuccess = (event) => {
+      let requestData = event.target.result
+      requestData.state = newState
+      objectStore.put(requestData).onsuccess = () => {
+        this.store.commit('updateRequestState', { id, newState })
+      }
+    }
+  }
 }
 
 const dbManager = new DbManager()
