@@ -26,7 +26,13 @@ class WsManager {
   }
   handleMessage(message) {
     console.log(message)
-    dbManager.updateRequestById(this.sentId, message)
+    let newState
+    if (message == 0) {
+      newState = 'healthy'
+    } else {
+      newState = 'ill'
+    }
+    dbManager.updateRequestById(this.sentId, newState)
   }
 }
 
