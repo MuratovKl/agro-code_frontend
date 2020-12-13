@@ -31,10 +31,12 @@ class DbManager {
     const transaction = this.db.transaction('requests', 'readwrite')
     transaction.oncomplete = () => {
       console.log('Request saved to db')
+      this.getAllRequests()
     }
     transaction.objectStore('requests').put(request)
   }
   getAllRequests() {
+    this.store.commit('clearRequests')
     const objectStore = this.db.transaction('requests').objectStore('requests')
     objectStore.openCursor().onsuccess = (event) => {
       const cursor = event.target.result

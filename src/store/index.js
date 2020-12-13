@@ -25,6 +25,9 @@ export default new Vuex.Store({
       if (index !== -1) {
         state.requests[index].state = payload.newState
       }
+    },
+    clearRequests(state) {
+      state.requests = []
     }
   },
   actions: {
