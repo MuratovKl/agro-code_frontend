@@ -65,7 +65,11 @@ export default {
   data() {
     return {
       selectedFilter: 0,
-      requests: this.$store.state.requests
+    }
+  },
+  computed: {
+    requests() {
+      return this.$store.state.requests
     }
   },
   watch: {
