@@ -65,13 +65,20 @@ export default {
   data() {
     return {
       selectedFilter: 0,
-      requests: [
-        { id: '1', state: 'loading', img: ''},
-        { id: '2', state: 'ill', img: ''},
-        { id: '3', state: 'healthy', img: ''},
-      ]
+      requests: this.$store.state.requests
     }
-  }
+  },
+  watch: {
+    selectedFilter(val) {
+      if (val === 0) {
+        this.requests = this.$store.state.requests
+      } else if (val === 1) {
+        this.requests = this.$store.getters.healthyRequests
+      } else {
+        this.requests = this.$store.getters.illRequests
+      }
+    }
+  },
 }
 </script>
 
