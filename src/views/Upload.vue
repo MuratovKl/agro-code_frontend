@@ -93,8 +93,6 @@ export default {
         return
       }
 
-      // const request = { id: 'blaba', state: 'healthy', img: this.image, creationDate: Date.now()}
-      // dbManager.saveNewRequest(request)
       const formData = new FormData()
       formData.append('file', this.image)
       // 1. make post request with image
